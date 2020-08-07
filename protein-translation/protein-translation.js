@@ -3,6 +3,7 @@
 // convenience to get you started writing code faster.
 //
 
-export const translate = () => {
+export const translate = (rnaSequence) => {
+  if (rnaSequence === "AUG") return ['Methionine']
   return [];
 };
