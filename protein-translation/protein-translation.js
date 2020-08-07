@@ -28,19 +28,11 @@ const isValid = (rnaSequence) => rnaSequence.length % CODON_LENGTH !== 0;
 
 const getRnaTranslation = (rnaSequence) => {
   let protiens = [];
-  let codon = ""
-
-  rnaSequence.split("").forEach(char => {
-    codon += char;
-    if (codon.length === CODON_LENGTH) {
-      if (TerminatingCodons.includes(codon))
-        return;
-      if (!codonToProtien[codon])
-        throw Error("Invalid codon");
-      protiens.push(codonToProtien[codon]);
-      codon = "";
-    }
-  });
+  for (let codon of rnaSequence.match(/.{3}/g)) {
+    if (TerminatingCodons.includes(codon)) break;
+    if (!codonToProtien[codon]) throw Error("Invalid codon");
+    protiens.push(codonToProtien[codon]);
+  };
 
   return protiens;
 }
