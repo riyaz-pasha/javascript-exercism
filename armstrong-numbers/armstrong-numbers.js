@@ -3,9 +3,6 @@
 // convenience to get you started writing code faster.
 //
 
-export const isArmstrongNumber = (number) => {
-  const numberLength = (number + "").length
-  return number === (number + "")
-    .split("")
-    .reduce((sum, currentDigit) => sum += parseInt(currentDigit) ** numberLength, 0)
-};
+const reducer = () => (sum, currentDigit, _, { length }) => (sum += parseInt(currentDigit) ** length);
+
+export const isArmstrongNumber = (number) => number === [...number.toString()].reduce(reducer(), 0)
