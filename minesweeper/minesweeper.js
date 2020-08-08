@@ -9,8 +9,6 @@ export const annotate = (input) => input
     .join("")
   )
 
-const getMinesCount = (input, row, column) =>
-  (input[row].substring(column - 1, column + 2)
-    + (input[row - 1] || " ").substring(column - 1, column + 2)
-    + (input[row + 1] || " ").substring(column - 1, column + 2)
-  ).replace(/[^*]/g, "").length
+const getMinesCount = (input, row, column) => input
+  .slice(row == 0 ? 0 : row - 1, row + 2)
+  .reduce((minesCount, eachRow) => minesCount += eachRow.substring(column - 1, column + 2).replace(/[^*]/g, "").length, 0)
