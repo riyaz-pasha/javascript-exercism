@@ -3,6 +3,6 @@
 // convenience to get you started writing code faster.
 //
 
-export const toRoman = () => {
-  return "I";
+export const toRoman = (number) => {
+  return "I".repeat(number);
 };
