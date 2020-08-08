@@ -4,16 +4,7 @@
 //
 
 export class QueenAttack {
-    board = [
-        '___W____',
-        '________',
-        '________',
-        '________',
-        '________',
-        '________',
-        '________',
-        '________'
-    ]
+    board = [...Array(8)].map(() => Array(8).fill("_"));
 
     constructor(queenPosition = {}) {
         if (this.hasEqualPosition(queenPosition.black, queenPosition.white)) throw Error('Queens cannot share the same space');
@@ -24,8 +15,8 @@ export class QueenAttack {
     }
 
     updateQueenPosition(queen, position) {
-        this.board = this.board.map(eachRow => eachRow.replace(queen, "_"))
-        this.board[position[0]] = this.board[position[0]].substring(0, position[1]) + queen + this.board[position[0]].substring(position[1] + 1, 8)
+        this.board = this.board.map(eachRow => eachRow.map(column => column.replace(queen, "_")))
+        this.board[position[0]][position[1]] = queen
     }
 
     toString() {
