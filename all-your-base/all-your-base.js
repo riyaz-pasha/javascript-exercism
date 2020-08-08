@@ -14,6 +14,14 @@ const isValidBase = (base) => base >= 2 && parseInt(base) === base
 const getNumberInBase10 = (inputSeqArr, inputBase) => inputSeqArr
   .reduce((sum, currentNumber, currentIndex, { length }) => sum += (currentNumber * inputBase ** (length - 1 - currentIndex)), 0);
 
+const getNumbnerInOutputBaseFromBase10 = (outputBase) => (inputNumberInBase10, numberInOutputBase = []) => {
+  if (inputNumberInBase10 === 0) return numberInOutputBase;
+  return getNumbnerInOutputBaseFromBase10(outputBase)(
+    parseInt(inputNumberInBase10 / outputBase),
+    [inputNumberInBase10 % outputBase, ...numberInOutputBase]
+  );
+}
+
 export const convert = (inputSeqArr, inputBase, outputBase) => {
 
   if (!isValidBase(inputBase)) throw new Error('Wrong input base');
@@ -23,11 +31,5 @@ export const convert = (inputSeqArr, inputBase, outputBase) => {
 
   let inputNumberInBase10 = getNumberInBase10(inputSeqArr, inputBase)
 
-  let numberInOutputBase = []
-  while (inputNumberInBase10 !== 0) {
-    numberInOutputBase = [inputNumberInBase10 % outputBase, ...numberInOutputBase]
-    inputNumberInBase10 = parseInt(inputNumberInBase10 / outputBase)
-  }
-
-  return numberInOutputBase
+  return getNumbnerInOutputBaseFromBase10(outputBase)(inputNumberInBase10);
 };
